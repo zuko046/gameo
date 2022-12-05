@@ -1,0 +1,51 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Category Management</h1>
+  </div>
+  <br />
+  <div>
+    <form action="/admin/category/addcategory" method="post">
+      <div class="row mb-3">
+        <label for="inputText" class="col-sm-2 col-form-label">Enter New Category</label>
+        <div class="col-sm-5">
+          <input name="categoryname" id="UserName" type="text" class="form-control" />
+          <br>
+          <button type="submit" class="btn btn-primary">Add category</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <h5>Category List</h5>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Index</th>
+        <th scope="col">Categorys</th>
+        {{! <th scope="col">Edit</th> }}
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each categorydata}}
+        <tr>
+          <th scope="row">{{inc @index}}</th>
+          <td>{{this.categoryname}}</td>
+          <td><a href="/admin/category/delete/{{this._id}}" class="btn btn-danger rounded-pill">Delete</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+</section>
+<script>
+
+  $("input#UserName").on({
+  keydown: function(e) {
+    if (e.which === 32)
+      return false;
+  },
+  change: function() {
+    this.value = this.value.replace(/\s/g, "");
+  }
+});
+</script>

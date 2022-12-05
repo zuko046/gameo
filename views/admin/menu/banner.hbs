@@ -1,0 +1,29 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Banner Management</h1>
+  </div>
+  <br />
+  <div>
+    <img
+      style="width: 45rem; height: auto;"
+      src="{{URL}}"
+      class="img-fluid"
+      alt="BANNER NOT FOUND OR NOT GIVEN"
+    />
+  </div>
+  <br />
+  <form action="/admin/changebanner" method="post" enctype="multipart/form-data">
+
+    <div class="col-md-6 sm">
+      <label for="inputNumber" class="col-sm-6 col-form-label">Upload New Banner</label>
+      <input name="banner" class="form-control" type="file" id="formFile" required />
+
+    </div>
+    <div class="col-md-4">
+      <br>
+      <button type="submit" class="btn btn-secondary rounded-pill">Done</button>
+
+    </div>
+
+  </form>
+</section>

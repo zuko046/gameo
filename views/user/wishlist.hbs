@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="section-top-border">
+    <h3 class="mb-30 title_color"> Wishlist</h3>
+    <div class="progress-table-wrap">
+      <div class="progress-table">
+        <div class="table-head">
+          <div class="serial">index</div>
+          <div class="country">product</div>
+          <div class="visit">price</div>
+          <div ></div>
+          <div ></div>
+        </div>
+        {{#each wishItem}}
+        <div class="table-row">
+          <div class="serial">{{inc @index}}</div>
+          <div class="country">
+            <img style="width: 3rem; height: auto;" src="{{this.product.Image.[0]}}" alt="product" />{{this.product.Name}}</div>
+          <div class="visit">{{this.product.OfferPrice}}</div>
+          <div class="visit">
+            <button  class="genric-btn success circle"  onclick="addToCart('{{this.product._id}}')" >Add to Cart</button>
+          </div>
+          <div class="visit">
+            <button class="genric-btn info circle" onclick="clearWishlist('{{this.product._id}}')">clear</button>
+          </div>
+        </div>
+        {{/each}} 
+      </div>
+    </div>
+  </div>
+</div>

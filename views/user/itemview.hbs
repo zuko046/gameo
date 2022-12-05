@@ -1,0 +1,210 @@
+
+
+
+    <!--================Single Product Area =================-->
+    <div class="product_image_area">
+      <div class="container">
+        <div class="row s_product_inner">
+          <div class="col-lg-6">
+            <div class="s_product_img">
+              <div
+              
+              style="width: 30rem; height: auto;"
+                id="carouselExampleIndicators"
+                class="carousel slide"
+                data-ride="carousel"
+              >
+                <ol class="carousel-indicators">
+                  <li
+                    data-target="#carouselExampleIndicators"
+                    data-slide-to="0"
+                    class="active"
+                  >
+                    <img id="img-container" style="width: 3rem; height: auto;"
+                      src="{{item.Image.[0]}}"
+                      alt=""
+                    />
+                  </li>
+                  <li
+                    data-target="#carouselExampleIndicators"
+                    data-slide-to="1"
+                  >
+                    <img id="img-container" style="width: 3rem; height: auto;"
+                      src="{{item.Image.[1]}}"
+                      alt=""
+                    />
+                  </li>
+                  <li
+                    data-target="#carouselExampleIndicators"
+                    data-slide-to="2"
+                  >
+                    <img id="img-container" style="width: 3rem; height: auto;"
+                      src="{{item.Image.[2]}}"
+                      alt=""
+                    />
+                  </li>
+                  <li
+                    data-target="#carouselExampleIndicators"
+                    data-slide-to="3"
+                  >
+                    <img id="img-container" style="width: 3rem; height: auto;"
+                      src="{{item.Image.[3]}}"
+                      alt=""
+                    />
+                  </li>
+                </ol>
+                <div class="carousel-inner"  >
+                  <div  id="img-containers" style="width: 30rem; height: 20rem;" class="carousel-item active"  >
+                    <div class="lens" id="img-container" style="width:100%">
+                    <img style="width: 4rem; height: auto;" 
+                      class="d-block w-100 block__pic"
+                      src="{{item.Image.[0]}}"
+                      alt="First slide"
+                    />
+                    </div>
+                  </div>
+                  {{!-- <div class="col-md-12 px-0 lens mt-5" id="img-container" style="width:100%">
+                  <img class="block__pic img-fluid" src="{{item.Image.[0]}}" alt="" id="ProductImg" />
+                </div> --}}
+
+                  <div id="img-containers" class="carousel-item" style="width: 30rem; height: 20rem;">
+                    <img style="width: 4rem; height: auto;" 
+                      class="d-block w-100 block__pic"
+
+                      src="{{item.Image.[1]}}"
+                      alt="Second slide"
+                    />
+                  </div>
+                  <div id="img-containers" class="carousel-item" style="width: 30rem; height: 20rem;">
+                    <img style="width: 4rem; height: auto;" 
+                      class="d-block w-100 block__pic"
+                    
+                       src="{{item.Image.[2]}}"
+                      alt="Third slide"
+                    />
+                  </div>
+                  <div id="img-containers" class="carousel-item" style="width: 30rem; height: 20rem;">
+                    <img style="width: 4rem; height: auto;" 
+                      class="d-block w-100 block__pic"
+                      
+                       src="{{item.Image.[3]}}"
+                      alt="Forth slide"
+                    />
+                  </div>
+  
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 offset-lg-1">
+            <div class="s_product_text">
+              <h3>{{item.Name}}</h3>
+              
+              {{!-- {{#if item.OfferPrice}}
+              <h2>$.{{item.OfferPrice}}</h2>
+              <del>$.{{item.ActualPrice}}</del>
+               <h4>OFFER UPTO {{item.CategoryOfferPercentage}}%</h4>
+              {{else}}
+              <h2>$.{{item.ActualPrice}}</h2>
+              {{/if}} --}}
+
+
+                {{#if item.OfferPrice}}
+            <div class="mt-3">
+              <h2>${{item.OfferPrice}}</span>
+              <del>${{item.ActualPrice}}</del>
+              {{#if item.CategoryOfferPercentage}}
+              <h4>Category OFFER upto {{item.CategoryOfferPercentage}}%</h4>
+              {{/if}}
+
+              {{#if item.ProductOfferPercentage}}
+              <h4>Product OFFER upto {{item.ProductOfferPercentage}}%</h4>
+              {{/if}}
+            </div>
+          {{else}}
+          
+          <div class="mt-3">
+              <h4>${{item.ActualPrice}}</h4>
+          </div>
+          
+          {{/if}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <ul class="list">
+                <li>
+                  <a style="text-decoration: none;" class="active" href="#">
+                    <span>Category</span> : {{item.category}}</a
+                  >
+                </li>
+                <li>
+                  <a style="text-decoration: none;" href="#"> <span>Availibility</span> : In Stock {{item.Stock}}</a>
+                </li>
+              </ul>
+              <p>
+                {{item.Description}}
+              </p>
+              
+              </div>
+              <div class="card_area">
+                <button class="main_btn" onclick="addToCart('{{item._id}}')">Add to Cart</button>
+                    {{!-- <a class="icon_btn" href="#">
+                    <i class="lnr lnr lnr-diamond"></i>
+                    </a> --}}
+                <button style="margin-left: 2rem;" class="genric-btn danger circle" onclick="addToWishList('{{item._id}}')" style="text-decoration: none;">
+                  {{!-- <i style="font-size: 1rem;" class="lnr lnr lnr-heart"></i> --}}
+                  <i class="bi bi-heart-fill"></i>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    <!--================End Single Product Area =================-->
+
+<script>    
+    //productzoom
+//    var options = {
+ //   width: 200,
+ //   zoomWidth: 180,
+ //   offset: {vertical: 250, horizontal: 200},   
+//};
+
+//IMAGE ZOOM
+$(document).ready(function () {
+    $(".block__pic").imagezoomsl({
+        zoomrange: [2, 2]
+    });
+});
+
+/*http://zoomsl.sergeland.ru Sergey Zaragulov skype: deeserge icq: 287295769 sergeland@mail.ru*/
+
+
+
+
+
+
+//    {{!-- var options = { --}}
+//    width: 200,
+//    zoomWidth: 180,
+//    offset: {vertical: 25, horizontal: 200},
+//   };
+//new ImageZoom(document.getElementById("img-containers"), options);
+</script>

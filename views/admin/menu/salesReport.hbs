@@ -1,0 +1,100 @@
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<section class="main" id="main">
+    <div class="pagetitle">
+        <h1>Sales Report</h1>
+        <br>
+        <button type="button" class="btn btn-primary rounded-pill btn_print me-3" id="rep" value="Download as Pdf" >Download PDF</button>
+        <button type="button" class="btn btn-primary rounded-pill" onclick="export_data()" value="Export to excel">Download as Excel</button>
+                <div class="d-flex my-auto">
+                    <form action="/admin/salesreport" method="get">
+                        <label for="month">Choose Month</label><br>
+                        <input id="month" name="month" type="month">
+                        <button class="btn btn-sm  btn-secondary rounded-pill" type="submit">Filter</button>
+                    </form>
+                    <form action="/admin/salesreport" method="get" class="ml-2">
+                        <label for="daterange">Choose Date</label><br>
+                        <input type="text" name="daterange" value="01/01/2022 - 01/15/2022" />
+                        <button class="btn btn-sm  btn-secondary rounded-pill" type="submit">Filter Date</button>
+                    </form>
+                </div>
+    </div>  
+        <div id="container_content">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col" class="pe-4">Order Id</th>
+                    <th scope="col" class="pe-4">Date</th>
+                    <th scope="col" class="">PaymentMethod</th>
+                    <th scope=" col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each report}}
+                <tr>
+                    <td class="pe-4">{{this._id}}</td>
+                    <td class="pe-4">{{this.date}}</td>
+                    <td class="pe-4 text-center">{{this.paymentMethod}}</td>
+                    <td class="pe-4 text-center">₹ {{this.totalPrice}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+
+<script>
+    
+$('input[name="dates"]').daterangepicker();
+
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+
+
+
+
+
+
+//PDF AND EXCEL
+
+$(document).ready(function ($) {
+    $(document).on('click','.btn_print',function(event) {
+        event.preventDefault();
+        var element=document.getElementById('container_content');
+        let randomNumber=Math.floor(Math.random()*(10000000000 - 1))+1;
+        var opt={
+            margin:0,
+            filename:'SalesReport'+randomNumber+'.pdf',
+            html2canvas:{ scale: 10 },
+            jsPDF:{unit:'in',format:'letter',orientation:'portrait'}
+        };
+
+        html2pdf().set(opt).from(element).save();
+    });
+});
+
+
+
+
+function export_data() {
+    let data = document.getElementById('container_content');
+    var fp = XLSX.utils.table_to_book(data, { sheet: 'vishal' });
+    XLSX.write(fp, {
+        bookType: 'xlsx',
+        type: 'base64'
+    });
+    XLSX.writeFile(fp, 'test.xlsx');
+}
+
+</script>
+
+

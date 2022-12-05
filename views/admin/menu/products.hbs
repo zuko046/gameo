@@ -1,0 +1,68 @@
+
+
+<section class="main" id="main">
+    <div class="pagetitle">
+        <h1>Products</h1>
+        <br>
+        <a href="/admin/addproduct" class="btn btn-secondary rounded-pill btn_print me-3">Add Product</a>
+    </div>  
+        <div id="container_content">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Index</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Actual price</th>
+                                    <th scope="col">Offer price</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each productdata}}
+                <tr>
+                    <th scope="row">{{inc @index}}</th>
+                                    <td>{{this.Name}}</td>
+                                    <td>{{this.category}}</td>
+                                    <td>{{this.Brand}}</td>
+                                    <td>{{this.ActualPrice}}</td>
+                                    <td>{{this.OfferPrice}}</td>
+                                    <td>{{this.Stock}}</td>
+                                    <td>
+                                        <img src="{{this.Image.[0]}}" alt=""
+                                            style="width:3rem; height: 3rem;">    
+                                            <img src="{{this.Image.[1]}}" alt=""
+                                            style="width:3rem; height: 3rem;">  
+                                            <img src="{{this.Image.[2]}}" alt=""
+                                            style="width:3rem; height: 3rem;">  
+                                            <img src="{{this.Image.[3]}}" alt=""
+                                            style="width:3rem; height: 3rem;">  
+                                            </td>
+                                    <td><a href="/admin/product/edit/{{this._id}}" style="width: 4rem;"
+                                            class="btn btn-secondary">Edit</a></td>
+                                    <td><a href="/admin/product/delete/{{this._id}}" style="width: 5rem;"
+                                            class="btn btn-danger">Delete</a></td>
+                    
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+

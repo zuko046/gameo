@@ -1,0 +1,74 @@
+<section style="display: flex; flex-direction: row;">
+    <div style="width: 10rem; height: 100%; background-color: aquamarine; float: left;">
+        <div
+            style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000); width: 20rem; height: 41.5rem; display: flex; flex-direction: row; justify-content: left; float: left;">
+            <div class="container "
+                style=" text-decoration: none; padding-top: 3rem; padding-left: 2rem; text-decoration-color: #ffff;">
+                <a href="/users/profile" style="text-decoration: none; margin-top: 5rem;  color: #000">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Personal info</h5>
+                </a>
+                <br>
+                <a href="/users/history" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Order history</h5>
+                </a>
+                 <br>
+                <a href="/users/wallet" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Wallet</h5>
+                </a>
+                <br>
+                <a href="/users/address" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Address</h5>
+                </a>
+                <br>
+                <a href="/users/password" style="text-decoration: none;  color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Password Management</h5>
+                </a>
+                <br>
+                <a href="/users/logout" style="text-decoration: none;  color: #000;">
+                    <i class="bi bi-box-arrow-right" style="float: left;"></i>
+                    <h5>&nbsp; Logout</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-left: 15rem;margin-top: 3rem; width:30rem">
+        <h3 > User Profile   <a href="/users/profile/edit " class="btn btn-dark" style="margin-left: 10rem;">Edit</a> </h3>
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">User Name : {{user.firstname}}</li>
+            {{!-- <li class="list-group-item">LastName : {{user.lastname}}</li> --}}
+            <li class="list-group-item">email : {{user.email}}</li>
+            <li class="list-group-item">phonenumber : {{user.phonenumber}}</li>
+        </ul>
+        <br>
+         <ul class="list-group list-group-flush">
+            <li><p class="list-group-item" title="Copy Text" id="text" onclick="copyElementText(this.id)"> Refer to your friends : {{user.referal}}</p></li>
+        </ul>
+
+    </div>
+
+       
+
+</section>
+<script>
+
+function copyElementText(id) {
+    var text = document.getElementById(id).innerText;
+    var elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = text;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
+}
+
+</script>
+
+

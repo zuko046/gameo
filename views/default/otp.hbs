@@ -1,0 +1,108 @@
+<!--================Home Banner Area =================-->
+    <section class="banner_area">
+      <div class="banner_inner d-flex align-items-center" style="background-color: #71cd14;">
+        <div class="container">
+          <div
+            class="banner_content d-md-flex justify-content-between align-items-center"
+          >
+            <div class="mb-3 mb-md-0">
+              <h2>OTP For Change PASSWORD</h2>
+              <p>Verify Email to Change Password</p>
+            </div>
+            <div class="page_link">
+              {{!-- <a href="index.html"></a> --}}
+              {{!-- <a href="tracking.html">Order Tracking</a> --}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+    <br>
+    <!--================Tracking Box Area =================-->
+    <section class="tracking_box_area ">
+        <div class="container">
+            <div class="tracking_box_inner">
+                <h6 id="emailvalid"></h6>
+                
+                <a href="/forgetpassword" class="btn-sm" id="retryemail" style="display: none;"> Click to Change Email</a>
+                <form class="row tracking_form"  method="post" id="getEmailForOTP" >
+                    <div class="col-md-12 form-group">
+                    <p>Enter Email </p>
+                    <input type="email" class="form-control" name="email" placeholder="Enter Registered E-mail" required/>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <button class="main_btn mt-40" type="submit"  style="text-decoration: none;" > Verify Email</button>
+                    </div>
+                </form>  
+                <br>   
+            
+                <!--================ otp page =================-->
+                <form class="row tracking_form"  method="post" novalidate="novalidate" id="otpPage" style="display: none;">
+                    <p>Enter OTP to change password : <span id="otpnumber"></span> </p>
+                    <div class="col-md-12 form-group">
+                        <p id="emailaddress"></p>
+                        <input type="email" class="form-control" id="order" name="order" placeholder="Enter the OTP">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <button class="main_btn mt-40" href="#" style="text-decoration: none;">Submit OTP</button>
+                        <br>
+                        <br>
+                       <span class="d-block mobile-text">Don't receive the code?</span>
+                        <p> Resend OTP After <span id="countdowntimer">60 </span> Seconds</p>
+                        <button class="main_btn mt-40" id="resendbtn" onclick="resendotp()" style="text-decoration: none;  display: none; ">Resend OTP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!--================End Tracking Box Area =================-->
+    <script>
+// for email check and send otp
+$("#getEmailForOTP").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+        url : '/finduser',
+        type : 'post',
+        data : $('#getEmailForOTP').serialize(),
+        success:(response)=>{
+            console.log(response)
+            if(response.status){
+                document.getElementById('getEmailForOTP').style.display = "none"
+                document.getElementById('emailvalid').innerHTML = "Email ID is valid : "+response.email
+                document.getElementById('otpPage').style.display = ""
+                document.getElementById('retryemail').style.display = ""
+                document.getElementById('otpnumber').innerHTML = "########"+ response.number
+                var timeleft = 60;
+                var downloadTimer = setInterval(function () {
+                timeleft--;
+                document.getElementById("countdowntimer").textContent = timeleft;
+                if (timeleft <= 0)
+                clearInterval(downloadTimer);
+                }, 1000);
+            setTimeout(function () {
+                document.getElementById('resendbtn').style.display = ""
+            }, 60000)
+                }else{
+                document.getElementById('emailvalid').innerHTML = "Enter valid email"
+            }
+        }
+    })
+})
+  
+</script>
+<script>
+
+</script>
+<script>
+        resendotp(){
+            document.getElementById('resendbtn').style.display = "none"
+            $.ajax({
+                url : '/resendotp',
+                type : 'get',
+                success: (response)=>{
+
+                }
+            })
+        }
+    </script>

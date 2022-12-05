@@ -1,0 +1,27 @@
+<section class="container">
+<div>
+            <h4>Personal data</h4>
+            <br>
+            <form action="/users/profile/edit" method="post" style="width: 30rem;">
+            <div class="form-outline mb-4">
+            <input name="firstname" type="text" id="form7Example5" class="form-control" value="{{user.firstname}}"  required/>
+            <label class="form-label" for="form7Example5">First Name</label>
+            </div>
+             <div class="form-outline mb-4">
+            <input name="lastname" type="text" id="form7Example5" class="form-control" value="{{user.lastname}}"  required/>
+            <label class="form-label" for="form7Example5">Last Name</label>
+            </div>
+            <div class="form-outline mb-4">
+            <input name="email" type="email" id="form7Example5" class="form-control" value="{{user.email}}"   required/>
+            <label class="form-label" for="form7Example5">email</label>
+            </div>
+            <div class="form-outline mb-4">
+            <input name="phonenumber" type="text" id="form7Example5" class="form-control" value="{{user.phonenumber}}"   required/>
+            <label class="form-label" for="form7Example5">phonenumber</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            <br>
+</div>
+
+</section> 

@@ -1,0 +1,41 @@
+<section class="main" id="main">
+    <div class="pagetitle">
+        <h1>User Management</h1>
+    </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Index</th>
+<th scope="col">Name</th>
+{{!-- <th scope="col">Last Name</th> --}}
+<th scope="col">Email</th>
+<th scope="col">Status</th>
+<th scope="col">Phone Number</th>
+<th scope="col">Block or Unblock</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+                    <tr>
+                        <th scope="row">{{inc @index}}</th>
+                        <td>{{this.firstname}}</td>
+                        {{!-- <td>{{this.lastname}}</td> --}}
+                        <td>{{this.email}}</td>
+                        <td>
+                            {{#if this.status}}
+                            Active
+                            {{else}}
+                            Inactive
+                            {{/if}}
+                        </td>
+                        <td>{{this.phonenumber}}</td>
+                        {{#if this.status}}
+                        <td><a href="/admin/users/{{this._id}}" class="btn btn-danger" style="width: 6rem;">block</a></td> 
+                       {{else}}
+                       <td><a href="/admin/users/{{this._id}}" class="btn btn-success" style="width: 6rem;">Unblock</a></td>
+                    {{/if}}
+                    </tr>
+                    {{/each}}
+    </tbody>
+  </table>
+</section>

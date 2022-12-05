@@ -1,0 +1,81 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Order Management</h1>
+  </div>
+  <br />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Index</th>
+        <th scope="col">Product</th>
+        <th scope="col">UserId</th>
+        <th scope="col">Address</th>
+        <th scope="col">Total</th>
+        <th scope="col">status</th>
+        <th scope="col">Change</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+                    <tr>
+                        <th scope="row">{{this.number}}</th>                  
+                        <td style="width: 8rem;">
+                            {{#each product}}
+                            {{this.productName}} <br>
+                            {{/each}}
+                            </td>
+                        <td > {{this.userId}}</td>
+                        <td> {{this.deliveryDetails.name}} {{this.deliveryDetails.address}}</td>
+                        <td>{{this.totalPrice}}</td>
+                        <td style="width: 8rem;"> {{this.status}}</td>
+                        <td style="width: 10rem;">
+                          <form action="/admin/orders/changeStatus/{{this._id}}" method="post" >
+                            <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example" >
+                                <option  selected >{{this.status}}</option>
+                                {{#ifCheck this.status 'Pending'}}
+                                <option value="Placed">Placed</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancel Order">Cancel Order</option>
+                                {{/ifCheck}}
+
+                                {{#ifCheck this.status 'Placed'}}
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancel Order">Cancel Order</option>
+                                {{/ifCheck}}
+
+                                {{#ifCheck this.status 'Shipped'}}
+                                <option value="Delivered">Delivered</option>
+                                {{!-- <option value="Delivered">Delivered</option> --}}
+                                <option value="Cancel Order">Cancel Order</option>
+                                {{/ifCheck}}
+
+                                {{!-- {{#ifCheck this.status 'Delivered'}} --}}
+                                {{!-- <option value="Cancel Order">Cancel Order</option> --}}
+                                {{!-- {{/ifCheck}} --}}
+                            </select>
+                        </td>
+                        {{#each ../pageCount}}
+                            {{!-- <input style="display: none;" type="number" name="page" value="{{this}}"> --}}
+                        {{/each}}
+                        <td><button class="btn btn-primary rounded-pill" type="submit">Save</button></td>
+                      </form>
+                    </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <div class="container">
+    <nav aria-label="...">
+  <ul class="pagination justify-content-end">
+    {{#each pageCount}}
+    <li class="page-item"><a class="page-link" href="/admin/orders?page={{this}}">{{this}}</a></li>
+    {{/each}}
+  </ul>
+</nav>
+  </div>
+</section>
+<script>
+    console.log(req.orginalUrl)  
+</script>

@@ -1,0 +1,63 @@
+<section style="display: flex; flex-direction: row;">
+    <div style="width: 10rem; height: 100%; background-color: aquamarine;">
+        <div
+            style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000); width: 20rem; height: 41.5rem; display: flex; flex-direction: row; justify-content: left; float: left;">
+            <div class="container "
+                style=" text-decoration: none; padding-top: 3rem; padding-left: 2rem; text-decoration-color: #ffff;">
+                <a href="/users/profile" style="text-decoration: none; margin-top: 5rem;  color: #000">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Personal info</h5>
+                </a>
+                <br>
+                <a href="/users/history" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Order history</h5>
+                </a>
+                 <br>
+                <a href="/users/wallet" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Wallet</h5>
+                </a>
+                <br>
+                <a href="/users/address" style="text-decoration: none; color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Address</h5>
+                </a>
+                <br>
+                <a href="/users/password" style="text-decoration: none;  color: #000;">
+                    <i class="fa-solid fa-angles-right" style="float: left;"></i>
+                    <h5>&nbsp; Password Management</h5>
+                </a>
+                <br>
+                <a href="/users/logout" style="text-decoration: none;  color: #000;">
+                    <i class="bi bi-box-arrow-right" style="float: left;"></i>
+                    <h5>&nbsp; Logout</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left: 13rem;">
+        <h1 style="float: left;">Address</h1> <a href="/users/address/add" class="btn btn-dark" style="margin-left: 10rem;">Add address</a>
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Name</th>
+      <th scope="col">Number</th>
+      <th scope="col">address</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each useradds}}
+    <tr>
+      <th scope="row">{{inc @index}}</th>
+      <td>  {{this.address.name}} </td>
+      <td>  {{this.address.number}} </td>
+      <td> {{this.address.address}} , {{this.address.pin}} ,{{this.address.city}} </td>
+    </tr>
+    {{/each}}
+   
+  </tbody>
+</table>
+    </div>
+</section>

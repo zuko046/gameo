@@ -1,0 +1,275 @@
+<body
+  style="background-image: url('https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000');">
+  <section class="container" style="display: flex; flex-direction: row; margin-top: 3rem;">
+
+    <div style="display: flex; flex-direction: row;">
+      <div>
+    <form id="checkout-form" style="width: 50rem;">
+          <div>
+            <h3>Payment Method</h3>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="COD" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                CASH ON DELIVERY
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="payment" id="exampleRadios2" value="ONLINE">
+              <label class="form-check-label" for="exampleRadios2">
+                ONLINE PAYMENT
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="payment" id="exampleRadios3" value="WALLET">
+              <label class="form-check-label" for="exampleRadios2">
+                Wallet PAYMENT
+              </label>
+            </div>
+            <br>
+          </div>
+          {{!--
+        </form> --}}
+        {{!-- address div --}}
+        <div>
+          <div style="display: flex; flex-direction: row;">
+            <h3>Address</h3>
+            <a href="/users/address/add" style="margin-left: 3rem; height: 2rem; width: 8rem;" class="btn btn-dark btn-sm">Add address</a>
+          </div>
+          <div style="margin-top: 1rem; width: 30rem; ">
+            {{!-- <form action=""> --}}
+              {{#each address}}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="address" id="exampleRadios1" value="{{this.address.name}}
+                  {{this.address.number}}
+                  {{this.address.address}}
+                  {{this.address.city}}
+                  {{this.address.email}}
+                  {{this.address.pin}}" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                  {{this.address.name}}
+                  {{this.address.number}}
+                  {{this.address.address}}
+                  {{this.address.city}}
+                  {{this.address.email}}
+                  {{this.address.pin}}
+                </label>
+              </div>
+              {{/each}}
+              
+              <input type="text" name="couponDiscount" id="discount" style="display: none;">
+              <input type="text" name="totalAmount" id="totalAmount" style="display: none;">
+              <input type="text" name="coupon" id="couponcode" style="display: none;">
+
+
+
+
+              <button type="submit" class="btn btn-dark" style="margin-top: 3rem;">Place Order </button>
+    </form>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; width: 30rem; flex-direction: row; justify-content: end;">
+        <div style="display: flex; width: 30rem; justify-content: end;">
+          <ul class="list-group" style="width: 25rem;">
+            {{#each data}}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{this.productName}}</h6>
+                <small class="text-muted">Quantity : {{this.quantity}}</small>
+              </div>
+              
+              <span class="text-muted">$ {{this.total}}</span>
+            </li>
+            {{/each}}
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-muted" id="coupon-discount"></span>
+
+              <h4>Total </h4>
+              <strong id="totalprice">{{total}}</strong>
+            </li>
+            
+        <div style="display: flex; flex-direction: column;">
+          
+           <br>
+           {{!-- <input type="text" style="display: flex;">
+           <br>
+           <button class="btn btn-primary">Apply</button> --}}
+           {{!-- <div class="input-group mb-3">
+          <input    id="couponcode"             type="text" class="form-control" placeholder="Coupon Code" aria-label="Coupon code" aria-describedby="button-addon2">
+           <button   onclick="applycoupon(couponcode)"     class="btn btn-outline-secondary" type="button" id="button-addon2">Apply</button>
+          </div> --}}
+          <div id="coupondiv">
+          <form class="card p-2" id="redeem-coupon" method="post">
+                <div>
+                  <span id="coupon-error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="coupon-form" name="coupon" placeholder="Coupon code">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">Redeem</button>
+                        <div id="coupon-condition"></div>
+                    </div>
+                </div>
+          </form> 
+        </div>
+            </div>
+
+          </ul>
+        </div>
+      </div>
+  </section>
+  <br>
+  
+  
+  <script>
+    $("#checkout-form").submit((e) => {
+      e.preventDefault()
+      $.ajax({
+        url: '/users/placeorder',
+        type: 'post',
+        data: $('#checkout-form').serialize(),
+        success: (response) => {
+          // alert(response) 
+          console.log(response)
+
+          if (response.codsucces) {
+            
+              swal({
+                title: "Order Placed Success!", 
+                text: "Thaank you for Shopping!",
+                type: "success",
+                showConfirmButton: true,
+                confirmButtonText: "Ok",   
+                closeOnConfirm: true 
+                }, function() {
+                    window.location = '/users/history';
+                })
+
+          }else if (response.wallet){
+              swal("Failed !", "You dont have enough balance!", "warning");
+          }else if (response.walletpayment){
+              swal({
+                title: "Order Placed Success!", 
+                text: "Thaank you for Shopping!",
+                type: "success",
+                showConfirmButton: true,
+                confirmButtonText: "Ok",   
+                closeOnConfirm: true 
+                }, function() {
+                    window.location = '/users/history';
+                })
+
+            }else{
+            razorpayPayment(response)
+          }
+        }
+      })
+
+    })
+    function razorpayPayment(order) {
+      console.log(order.amount)
+      var options = {
+        "key": "rzp_test_MatATSKGcwoaeB", // Enter the Key ID generated from the Dashboard
+        "amount": "324325", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Gameo",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
+          console.log(response)
+          verifyPayment(response, order)
+        },
+        "prefill": {
+          "name": "Gameo",
+          "email": "arjunraj046@gmail.com",
+          "contact": "7510746866"
+        },
+        "notes": {
+          "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+          "color": "#3399cc"
+        }
+      }
+      var rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', function (response) {
+       // alert(response.error.code);
+       // alert(response.error.description);
+       // alert(response.error.source);
+       // alert(response.error.step);
+       // alert(response.error.reason);
+       // alert(response.error.metadata.order_id);
+       // alert(response.error.metadata.payment_id);
+      });
+      rzp1.open();
+    }
+
+
+    //redeem coupon
+    $('#redeem-coupon').submit((e)=>{
+      e.preventDefault("coupondiv")
+    
+      $.ajax({
+        url : "/users/applycoupon",
+        type : "post" ,
+         data: $('#redeem-coupon').serialize(),
+         success: (response) => {
+          if (response.err){
+            document.getElementById("coupon-error").innerHTML = "Enter Valid Coupon";
+          }else{
+            swal("Coupon Applied!", "You got Coupon offer", "success");
+            console.log(response)
+            document.getElementById("coupon-discount").innerHTML = "Discount : $ "+response.discount.discount
+            document.getElementById("discount").value = response.discount.discount
+
+            //document.getElementById("coupon-discount").style.color = "red"
+            console.log()
+            let total = document.getElementById("totalprice").innerHTML 
+            document.getElementById("totalprice").innerHTML = total-response.discount.discount
+            document.getElementById("totalAmount").value = total-response.discount.discount
+
+            document.getElementById("couponcode").value = response.coupon
+
+             var coupon = document.getElementById("coupondiv")
+             coupon.style.display = "none"
+          }
+         } 
+      })
+    })
+
+    function verifyPayment(payment, order) { 
+      $.ajax({
+        url: '/users/verify-payment',
+        type: 'post',
+        data: {
+          payment,
+           order
+        },
+        success: (response) => {
+          if (response.status) {
+            swal({
+                title: "Order Placed Success!", 
+                text: "Thaank you for Shopping!",
+                type: "success",
+                showConfirmButton: true,
+                confirmButtonText: "Ok",   
+                closeOnConfirm: true 
+                }, function() {
+                    window.location = '/users/history';
+                })
+          }else{  
+           rzp1.open() 
+
+          }
+        }
+      })
+    }
+  </script>
+{{!-- location.href = '/users/placeorder' --}}
+
+  {{!-- alert(response.razorpay_payment_id);
+  alert(response.razorpay_order_id);
+  alert(response.razorpay_signature) --}}
+</body>

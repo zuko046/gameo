@@ -1,0 +1,1341 @@
+<script>
+
+
+
+//-------------------------PAGINATION------------------------
+pagination: (COLLECTION) =>{
+    return new Promise(async(resolve, reject) =>{
+      const limit = 5
+      let totalItems = await db
+        .get()
+        .collection(COLLECTION)
+        .find()
+        .toArray()
+      let totalCount = totalItems.length
+      const pageCount = totalCount / limit
+      let p = Math.ceil(pageCount)   //if 1.5 == 2
+      let pages = []
+      for (let i = 1; i <= p; i++) {
+        pages.push(i)
+      }
+      resolve(pages)
+    })
+   },
+
+  //USERS DISPLAYING ON ADMIN SIDE
+  getAllUsers: (pageNo) => {
+    return new Promise(async (resolve, reject) => {
+      let users
+      const limit=5
+      users = await db.get().collection(collection.USER_COLLECTION).find().skip(pageNo * limit).limit(limit)
+        .toArray();
+      resolve(users);
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!-- <!-- 
+<section style="width: 80%; ">
+
+    <div class="col-md-10" style="margin-left: 18rem;">
+    <div class="pt-5">
+        <h4>
+            DASHBOARD
+        </h4>
+    </div>
+
+    <div class="row" style="padding-top: 70px;">
+        <div class="col-xl-3 col-lg-6">
+            <div class="card l-bg-cherry">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large">
+                        {{!-- <i class="fas fa-shopping-cart"></i> --}}
+                        </div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0" style="color: #fff;">Total Orders</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0" style="color: #fff;">
+                                {{count.totalOrder}}
+                            </h2>
+                        </div>
+                        <div class="col-4 text-right">
+                            {{!-- <span>12.5% <i class="fa fa-arrow-up"></i></span> --}}
+                        </div>
+                    </div>
+                    {{!-- <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card l-bg-blue-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large">
+                        {{!-- <i class="fas fa-users"></i> --}}
+                        </div>
+                    <div class="mb-4">
+                        <h5 style="color: #fff;" class="card-title mb-0">Customers</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0" style="color: #fff;">
+                                {{count.totalUser}}
+                            </h2>
+                        </div>
+                        <div class="col-4 text-right">
+                            {{!-- <span>9.23% <i class="fa fa-arrow-up"></i></span> --}}
+                        </div>
+                    </div>
+                    {{!-- <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                        <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card l-bg-green-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large">
+                        {{!-- <i class="fas fa-ticket-alt"></i> --}}
+                        </div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0" style="color: #fff;">revenue</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0" style="color: #fff;">
+                                {{count.totalRevenue}}
+                            </h2>
+                        </div>
+                        <div class="col-4 text-right">
+                            {{!-- <span>10% <i class="fa fa-arrow-up"></i></span> --}}
+                        </div>
+                    </div>
+                    {{!-- <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                        <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+        <div style="width: 20rem; height: auto;">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        {{!-- <div class="col-xl-3 col-lg-6">
+            <div class="card l-bg-orange-dark">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Revenue Today</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                $11.61k
+                            </h2>
+                        </div>
+                        <div class="col-4 text-right">
+                            <span>2.5% <i class="fa fa-arrow-up"></i></span>
+                        </div>
+                    </div>
+                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+</div>
+</section>
+
+
+
+
+
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+
+
+
+
+
+
+<style>
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        border: none;
+        position: relative;
+        margin-bottom: 30px;
+        box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+    }
+
+    .card:hover {
+
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+
+    }
+
+    .l-bg-cherry {
+        background: linear-gradient(to right, #493240, #f09) !important;
+        color: #fff;
+    }
+
+    .l-bg-blue-dark {
+        background: linear-gradient(to right, #373b44, #4286f4) !important;
+        color: #fff;
+    }
+
+    .l-bg-green-dark {
+        background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+        color: #fff;
+    }
+
+    .l-bg-orange-dark {
+        background: linear-gradient(to right, #a86008, #ffba56) !important;
+        color: #fff;
+    }
+
+    .card .card-statistic-3 .card-icon-large .fas,
+    .card .card-statistic-3 .card-icon-large .far,
+    .card .card-statistic-3 .card-icon-large .fab,
+    .card .card-statistic-3 .card-icon-large .fal {
+        font-size: 110px;
+    }
+
+    .card .card-statistic-3 .card-icon {
+        text-align: center;
+        line-height: 50px;
+        margin-left: 15px;
+        color: #000;
+        position: absolute;
+        right: 73px;
+        top: 20px;
+        opacity: 0.1;
+    }
+
+    .l-bg-cyan {
+        background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+        color: #fff;
+    }
+
+    .l-bg-green {
+        background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+        color: #fff;
+    }
+
+    .l-bg-orange {
+        background: linear-gradient(to right, #f9900e, #ffba56) !important;
+        color: #fff;
+    }
+
+    .l-bg-cyan {
+        background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+        color: #fff;
+    }
+</style>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+console.log(pieChart)
+                document.addEventListener("DOMContentLoaded", (pieChart) => {
+                  echarts.init(document.querySelector("#trafficChart")).setOption({
+                    tooltip: {
+                      trigger: 'item'
+                    },
+                    legend: {
+                      top: '5%',
+                      left: 'center'
+                    },
+                    series: [{
+                      name: 'Access From',
+                      type: 'pie',
+                      radius: ['40%', '70%'],
+                      avoidLabelOverlap: false,
+                      label: {
+                        show: false,
+                        position: 'center'
+                      },
+                      emphasis: {
+                        label: {
+                          show: true,
+                          fontSize: '18',
+                          fontWeight: 'bold'
+                        }
+                      },
+                      labelLine: {
+                        show: false
+                      },
+                      data: [{
+                          value: pieChart.online,
+                          name: 'Online Payment'
+                        },
+                        {
+                          value: pieChart.cod,
+                          name: 'Cash on Delivery'
+                        }
+                      ]
+                    }]
+                  });
+                });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//usersssss
+
+<body
+    style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000);">
+    <div style="margin-left: 9rem;  width: 84.8rem;">
+        <br>
+        <h4 style="margin-left: 19rem">User data</h4>
+        <br>
+        <div class="container" style=" width: 70rem;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Block || Unblock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <th scope="row">{{inc @index}}</th>
+                        <td>{{this.firstname}}</td>
+                        <td>{{this.lastname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>
+                            {{#if this.status}}
+                            Active
+                            {{else}}
+                            Inactive
+                            {{/if}}
+                        </td>
+                        <td>{{this.phonenumber}}</td>
+                        {{#if this.status}}
+                        <td><a href="/admin/users/{{this._id}}" class="btn btn-danger" style="width: 6rem;">block</a></td> 
+                       {{else}}
+                       <td><a href="/admin/users/{{this._id}}" class="btn btn-success" style="width: 6rem;">Unblock</a></td>
+                    {{/if}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
+
+//sales report
+
+<div class="div d-flex">
+    <div class="d-flex my-auto" style="margin-left:17%;">
+        <form action="/admin/sales-report" method="get">
+            <label for="month">Choose Month</label><br>
+            <input id="month" name="month" type="month">
+            <button class="btn btn-sm btn-primary" type="submit">Filter</button>
+        </form>
+        <form action="/admin/sales-report" method="get" class="ms-5">
+            <label for="daterange">Choose Date</label><br>
+            <input type="text" name="daterange" value="01/01/2022 - 12/30/2022" />
+            <button class=" btn btn-sm  btn-primary" type="submit">Filter Date</button>
+        </form>
+    </div>
+
+    <div class="col-xl-5 d-flex justify-content-end pt-5 pb-5 ">
+        <input type="button" id="rep" value="Download as Pdf" class="btn btn-primary btn_print me-3">
+        <input type="button" onclick="export_data()" value="Export to excel" class="btn btn-primary btn_print">
+    </div>
+</div>
+ <div class="col-xl-4 d-flex justify-content-end ms-5 pb-5">
+    <form action="/admin/sales-report" method="get">
+        <label for="">Date</label>
+        <input type="month" name="month">
+        <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+    </form>
+</div> 
+
+<div class="card mb-4" style="margin-left:16%; margin-right: 3%;">
+
+    <div class="card-body container_content" id="container_content">
+        <div class=" container mb-5 mt-3">
+            <div class="row d-flex align-items-baseline">
+                <div class="col-xl-9">
+                    <p style="color: rgb(65, 65, 183);font-size: 30px;"><strong>
+                            Sales Report
+                        </strong>
+                    </p>
+                </div>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row my-2 mx-1 justify-content-center">
+                    <table class="table table-striped table-borderless">
+                        <thead style="background-color:#097dc1 ;" class="text-white">
+                            <tr>
+                                <th scope="col" class="pe-4">Order Id</th>
+                                <th scope="col" class="pe-4">Date</th>
+                                <th scope="col" class="">PaymentMethod</th>
+                                <th scope=" col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each report}}
+                            <tr>
+                                <td class="pe-4">{{this._id}}</td>
+                                <td class="pe-4">{{this.date}}</td>
+                                <td class="pe-4 text-center">{{this.paymentMethod}}</td>
+                                <td class="pe-4 text-center">₹ {{this.totalPrice}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+
+
+    // {{!-- export pdf and excel --}}
+
+function salesReport(days, buttonId) {
+
+    $.ajax({
+
+        url: '/admin/sales-report/' + days,
+
+        method: 'get',
+
+        success: (response) => {
+
+            if (response) {
+
+                const buttons = document.querySelectorAll('button');
+
+                buttons.forEach(button => {
+
+                    button.classList.remove('active');
+
+                });
+
+                document.getElementById(buttonId).classList.add("active");
+
+                document.getElementById('days').innerHTML=buttonId
+
+                document.getElementById('deliveredOrders').innerHTML=response.deliveredOrders
+
+                document.getElementById('shippedOrders').innerHTML=response.shippedOrders
+
+                document.getElementById('placedOrders').innerHTML=response.placedOrders
+
+                document.getElementById('canceledOrders').innerHTML=response.canceledOrders
+
+                document.getElementById('cashOnDelivery').innerHTML=response.cashOnDelivery
+
+                document.getElementById('onlinePayment').innerHTML=response.onlinePayment
+
+                document.getElementById('users').innerHTML=response.users
+
+            }
+
+        }
+
+    })
+
+}
+
+
+
+
+//PDF AND EXCEL
+
+$(document).ready(function ($) {
+
+    $(document).on('click','.btn_print',function(event) {
+
+        event.preventDefault();
+
+        var element=document.getElementById('container_content');
+
+
+
+
+        let randomNumber=Math.floor(Math.random()*(10000000000 - 1))+1;
+
+
+
+
+        var opt={
+
+            margin:0,
+
+            filename:'pageContent_'+randomNumber+'.pdf',
+
+            html2canvas:{ scale: 10 },
+
+            jsPDF:{unit:'in',format:'letter',orientation:'portrait'}
+
+        };
+
+        html2pdf().set(opt).from(element).save();
+
+    });
+
+});
+
+
+
+
+function export_data() {
+
+    let data = document.getElementById('container_content');
+
+    var fp = XLSX.utils.table_to_book(data, { sheet: 'vishal' });
+
+    XLSX.write(fp, {
+
+        bookType: 'xlsx',
+
+        type: 'base64'
+
+    });
+
+    XLSX.writeFile(fp, 'test.xlsx');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SALES REPORT
+router.get('/sales-report', async (req, res) => {
+    if (req.query?.month) {
+        let month = req.query?.month.split("-")
+        let [yy, mm] = month;
+
+        deliveredOrders = await adminHelpers.deliveredOrderList(yy, mm)
+     } else if (req.query?.daterange) {
+       deliveredOrders = await adminHelpers.deliveredOrderList(req.query);
+     } else {
+        deliveredOrders = await adminHelpers.deliveredOrderList();
+      }
+        
+      
+      let amount = await adminHelpers.totalAmountOfdelivered()
+  res.render('admin/sales-report', { admin: true, deliveredOrders, amount })
+})
+
+
+    //SALES REPORT
+    deliveredOrderList: (yy, mm) => {
+        return new Promise(async (resolve, reject) => {
+            let agg = [{
+                $match: {
+                    'products.status': 'delivered'
+                }
+            }, {
+                $unwind: {
+                    path: '$products'
+                }
+            }, {
+                $project: {
+                    item: '$products.item',
+                    totalAmount: '$totalAmount',
+                    paymentMethod: '$paymentMethod',
+                    statusUpdateDate: '$statusUpdateDate',
+                }
+            }, {
+                $lookup: {
+                    from: 'product',
+                    localField: 'item',
+                    foreignField: '_id',
+                    as: 'result'
+                }
+            }, {
+                $project: {
+                    totalAmount: 1,
+                    productPrice: '$result.offerPrice',
+                    statusUpdateDate: 1,
+                    paymentMethod: '$paymentMethod'
+                }
+            }]
+
+            if (mm) {
+                let start = "1"
+                let end = "30"
+                let fromDate = mm.concat("/" + start + "/" + yy)
+                let fromD = new Date(new Date(fromDate).getTime() + 3600 * 24 * 1000)
+
+                let endDate = mm.concat("/" + end + "/" + yy)
+                let endD = new Date(new Date(endDate).getTime() + 3600 * 24 * 1000)
+                dbQuery = {
+                    $match: {
+                        statusUpdateDate: {
+                            $gte: fromD,
+                            $lte: endD
+                        }
+                    }
+                }
+                agg.unshift(dbQuery)
+                let deliveredOrders = await db
+                    .get()
+                    .collection(collection.ORDER_COLLECTION)
+                    .aggregate(agg).toArray()
+                resolve(deliveredOrders)
+            } else if (yy) {
+                let dateRange = yy.daterange.split("-")
+                let [from, to] = dateRange
+                from = from.trim("")
+                to = to.trim("")
+                fromDate = new Date(new Date(from).getTime() + 3600 * 24 * 1000)
+                toDate = new Date(new Date(to).getTime() + 3600 * 24 * 1000)
+                dbQuery = {
+                    $match: {
+                        statusUpdateDate: {
+                            $gte: fromDate,
+                            $lte: toDate
+                        }
+                    }
+                }
+                agg.unshift(dbQuery)
+                let deliveredOrders = await db
+                    .get()
+                    .collection(collection.ORDER_COLLECTION)
+                    .aggregate(agg).toArray()
+                resolve(deliveredOrders)
+            } else {
+                let deliveredOrders = await db
+                    .get()
+                    .collection(collection.ORDER_COLLECTION)
+                    .aggregate(agg).toArray()
+                resolve(deliveredOrders)
+            }
+        })
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//             <table class="table table-bordered">
+//                 <thead>
+//                 <tr>
+//                     <th scope="col" class="pe-4">Order Id</th>
+//                     <th scope="col" class="pe-4">Date</th>
+//                     <th scope="col" class="">PaymentMethod</th>
+//                     <th scope=" col">Amount</th>
+//                 </tr>
+//                 </thead>
+//                 <tbody>
+//                 {{#each data}}
+//                     <tr>
+//                         <th scope="row">{{inc @index}}</th>
+//                         <td>{{this.firstname}}</td>
+//                         <td>{{this.lastname}}</td>
+//                         <td>{{this.email}}</td>
+//                         <td>
+//                             {{#if this.status}}
+//                             Active
+//                             {{else}}
+//                             Inactive
+//                             {{/if}}
+//                         </td>
+//                         <td>{{this.phonenumber}}</td>
+//                         {{#if this.status}}
+//                         <td><a href="/admin/users/{{this._id}}" class="btn btn-danger" style="width: 6rem;">block</a></td> 
+//                        {{else}}
+//                        <td><a href="/admin/users/{{this._id}}" class="btn btn-success" style="width: 6rem;">Unblock</a></td>
+//                     {{/if}}
+//                     </tr>
+//                     {{/each}}
+//                 </tbody>
+//              </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <div class="col-lg-6">
+//     <div class="card">
+//       <div class="card-body">
+//         <h5 class="card-title">Bar CHart</h5>
+
+//         <!-- Bar Chart -->
+//         <canvas id="barChart" style="max-height: 400px;"></canvas>
+//         <script>
+//           document.addEventListener("DOMContentLoaded", () => {
+//             new Chart(document.querySelector('#barChart'), {
+//               type: 'bar',
+//               data: {
+//                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//                 datasets: [{
+//                   label: 'Bar Chart',
+//                   data: [65, 59, 80, 81, 56, 55, 40],
+//                   backgroundColor: [
+//                     'rgba(255, 99, 132, 0.2)',
+//                     'rgba(255, 159, 64, 0.2)',
+//                     'rgba(255, 205, 86, 0.2)',
+//                     'rgba(75, 192, 192, 0.2)',
+//                     'rgba(54, 162, 235, 0.2)',
+//                     'rgba(153, 102, 255, 0.2)',
+//                     'rgba(201, 203, 207, 0.2)'
+//                   ],
+//                   borderColor: [
+//                     'rgb(255, 99, 132)',
+//                     'rgb(255, 159, 64)',
+//                     'rgb(255, 205, 86)',
+//                     'rgb(75, 192, 192)',
+//                     'rgb(54, 162, 235)',
+//                     'rgb(153, 102, 255)',
+//                     'rgb(201, 203, 207)'
+//                   ],
+//                   borderWidth: 1
+//                 }]
+//               },
+//               options: {
+//                 scales: {
+//                   y: {
+//                     beginAtZero: true
+//                   }
+//                 }
+//               }
+//             });
+//           });
+//         </script>
+//         <!-- End Bar CHart -->
+
+//       </div>
+//     </div>
+//   </div>
+
+-->
+
+<script>
+salesReportMonthWise: (mm,yy) => {
+    return new Promise(async (resolve, reject) => {
+      let start = "1";
+      let end = "30";
+      let fromDate = mm.concat("/" + start + "/" + yy);
+      let fromD = new Date(new Date(fromDate).getTime() + 3600 * 24 * 1000);
+      let endDate = mm.concat("/" + end + "/" + yy);
+      let endD = new Date(new Date(endDate).getTime() + 3600 * 24 * 1000);
+      console.log(fromD,endD);
+
+    </script>
+
+
+ -->
+
+
+
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        
+        
+        
+        
+        
+        
+        
+router.post('/add-product', upload.fields([
+  { name: 'image1', maxCount: 1 },
+  { name: 'image2', maxCount: 1 },
+  { name: 'image3', maxCount: 1 },
+  { name: 'image4', maxCount: 1 },
+]), async (req, res) => {
+  console.log(req.files);
+  const cloudinaryImageUploadMethod = (file) => {
+    console.log("qwertyui");
+    return new Promise((resolve) => {
+      cloudinary.uploader.upload(file, (err, res) => {
+        console.log(err, " asdfgh");
+        if (err) return res.status(500).send("Upload Image Error")
+        resolve(res.secure_url)
+      })
+    })
+  }
+
+  const files = req.files
+  let arr1 = Object.values(files)
+  let arr2 = arr1.flat()
+  const urls = await Promise.all(
+    arr2.map(async (file) => {
+      const { path } = file
+      const result = await cloudinaryImageUploadMethod(path)
+      return result
+    })
+  )
+  console.log(urls);
+
+  productHelpers.addProduct(req.body, urls, (id) => {
+    res.redirect('/admin/products')
+  })
+})
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// abeesh add products
+
+
+
+exports.addProduct = async (req, res) => {
+  try {
+    const org = Number(req.body.orgprice);
+    const disc = Number(req.body.disprice);
+    console.log(typeof org, typeof disc);
+    if (disc > org) {
+      req.session.err = "Discount price should be less than original price";
+      res.redirect("/admin/add-product");
+    } else {
+      const cloudinaryImageUploadMethod = (file) => {
+        return new Promise((resolve) => {
+          cloudinary.uploader.upload(file, (err, res) => {
+            if (err) return res.status(500).send("upload image error")
+            resolve(res.secure_url)
+          })
+        })
+      }
+
+      const files = req.files;
+      let arr1 = Object.values(files);
+      let arr2 = arr1.flat();
+
+      const urls = await Promise.all(
+        arr2.map(async (file) => {
+          const { path } = file;
+          const result = await cloudinaryImageUploadMethod(path);
+          return result;
+        })
+      );
+      console.log(urls);
+
+      // const result=urls.map(url =>url.res)
+
+      const product = {
+        product: req.body.name,
+        description: req.body.description,
+        category: req.body.category,
+        subcategory: ObjectId(req.body.subcategory),
+        brand: ObjectId(req.body.brand),
+        size: Number(req.body.size),
+        stock: Number(req.body.stock),
+        productDiscount: 0,
+        categoryDiscount: 0,
+        originalprice: Number(req.body.orgprice),
+        discountprice: Number(req.body.disprice),
+        urls: urls,
+      };
+
+      const newProduct = await db
+        .get()
+        .collection(collection.PRODUCT_COLLECTION)
+        .insertOne(product);
+      // console.log(newProduct);
+      res.redirect("/admin/products");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+        
+        
+        
+        
+        
+        
+        
+        </script>
+
+
+
+
+
+   
+
+
+
+        <body style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000);">
+
+<div class="container" style="width: 80%;  margin-left: 18rem;">
+    <h3 style="margin: 2rem; margin-left: 10rem;"> Add Category </h3>
+    <div class="input-group mb-3 " style="width: 50%;">
+        
+        
+        
+        
+        
+        
+        <form action="/admin/category/addcategory" method="post" style="margin-left: 3rem;">
+            <span
+                style="float: left; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+                <h5 style="">Name of Category : </h5>
+            </span>
+            <input type="text" name="categoryname" style="width: 15rem; margin-left: 3rem; float: left;"
+                class="form-control border-dark  p-2 " aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
+            <button type="submit" class="btn btn-dark  p-1.5"
+                style="width: 7rem; text-decoration: none;margin-top: 1rem;margin-left: 22rem; color: #ffff; ">Add</button>
+        </form>
+    </div>
+    {{!-- <br> --}}
+    <h3 style="margin: 3rem; margin-left: 10rem;">Category list</h3>
+    <div class="container">
+        <table class="table rounded">
+            <thead>
+                <tr>
+                    <th scope="col">Index</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">delete</th>
+                    {{!-- <th scope="col">Handle</th> --}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each categorydata}}
+                <tr>
+                    <th scope="row">{{inc @index}}</th>
+                    <td>{{this.categoryname}}</td>
+                    <td><button class="btn btn-danger">Delete</button></td>
+                    {{!-- <td>@mdo</td> --}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <body
+    style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000);">
+    <div class="container" style="width: 80%; margin-left: 15rem;">
+        <br>
+        <h4 style="margin-left: 20rem; margin-top: 1rem;">Edit products</h4>
+        <div class="container" style=" width: 50rem;">
+            <div>
+                <form action="/admin/product/edit/{{product._id}}" method="post" enctype="multipart/form-data">
+                    <label for="Name">Product Name</label>
+                    <input type="text" name="Name" value="{{product.Name}}" class="form-control">
+                    <label for="category">Category</label>
+                    <select class="form-select" name="category" >
+                        <option selected>{{product.category}}</option>
+                        {{#each categorydata}}
+                        <option value={{this.categoryname}}>{{this.categoryname}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="">Brand</label>
+                    <input type="text" value="{{product.Brand}}" name="Brand" class="form-control">
+                    <label for="">Actual Price</label>
+                    <input type="number" value="{{product.ActualPrice}}" name="ActualPrice" class="form-control">
+                    <label for="">Offer Price</label>
+                    <input type="number" value="{{product.OfferPrice}}" name="OfferPrice" class="form-control">
+                    <label for="">Stock</label>
+                    <input type="number" value="{{product.Stock}}" name="Stock" class="form-control">
+                    <label for="">Description</label>
+                    <input type="text" value="{{product.Description}}" name="Description" class="form-control">
+                    <label for="">Product Image</label>
+                    <div style="display: flex; flex-direction: row;">
+                        <img src="/images/productimage/{{product._id}}.jpg" alt="null"
+                            style="width: 100px; height: auto; margin: 2rem; " id="imgView">
+                        <div>
+                            <input type="file" name="Image" class="form-control"
+                                onchange="viewImage(event)">
+                            <button type="submit" class="btn btn-success mt-4">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function viewImage(event) {
+            document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+</body> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF8">
+    <title>Title</title>
+    <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="img-container" style="width: 400px">
+        <img src="https://github.com/malaman/js-image-zoom/blob/master/example/1.jpg" />
+    <div>
+
+
+        
+<script>
+var options = {
+    width: 400,
+    zoomWidth: 500,
+    offset: {vertical: 0, horizontal: 10}
+};
+new ImageZoom(document.getElementById("img-container"), options);
+ 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+//order list
+
+
+<div style="width: 60%; margin-left: 15rem; margin-top: 3rem;">
+
+{{#each data}}
+<div  class="card rounded-3 mb-4">
+    <div class="card-body p-4">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-2 col-lg-2 col-xl-2">
+
+                <img src="https://insideretail.com.au/wp-content/uploads/2020/08/timthumb.jpg" class="img-fluid rounded-3"
+                    alt="Gameo"> 
+
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-3">
+
+                    <p>{{#each this.product}}</p>
+                           <a href=" " style="text-decoration: none;"> <p> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+<path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+</svg>
+                            {{this.productName}}</p></a>
+                        {{/each}}
+                    <p>{{this.deliveryDetails.address}}</p>
+                <p class="lead fw-normal mb-2">{{this.product.oderDate}}</p>
+                <p><span class="text-muted">Total : </span>{{this.totalPrice}} <span class="text-muted"></span></p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                <p class="lead fw-normal mb-2"> </p>
+                <p><span class="text-muted">
+                    </span>{{this.paymentMethod}} 
+                    
+
+
+                    {{!-- {{this.deliveryDetails.name}}{{this.deliveryDetails.address}}{{this.deliveryDetails.pincode}} --}}
+                    <span class="text-muted"></span></p>
+                    
+
+
+                {{!-- <button class="btn btn-link px-2"
+                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                    <i class="fas fa-plus"></i>
+                </button> --}}
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h5 class="mb-0">
+                    {{#ifCheck this.status "Shipped"}}
+                    {{!-- {{#ifCheck this.status "Cancel Order"}} --}}
+                    {{!-- {{#ifCheck this.status "Cancel Order"}} --}}
+                    {{!-- {{#ifCheck this.status "Cancel Order"}} --}}
+                     <a href="/users/cancelorder/{{this._id}}" class="btn btn-primary">Cancel Order</a>
+                    {{/ifCheck}}
+                    {{#ifCheck this.status "Pending"}}
+                     <a href="/users/cancelorder/{{this._id}}" class="btn btn-primary">Cancel Order</a>
+                    {{/ifCheck}}
+
+                    </h5>
+            </div>
+            {{!-- <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+            </div> --}}
+        </div>
+    </div>
+</div>
+<a href="">
+{{/each}}
+
+
+</div>

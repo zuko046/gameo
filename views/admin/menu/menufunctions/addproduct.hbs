@@ -1,0 +1,128 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Add New Products Form</h1>
+  </div>
+    <br>
+
+
+  <form action="/admin/addproduct" method="post" enctype="multipart/form-data">
+    <div class="row mb-3">
+      <label for="inputText" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+
+        <input name="Name" type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputEmail" class="col-sm-2 col-form-label">Brand</label>
+      <div class="col-sm-10">
+
+        <input name="Brand" type="text" class="form-control" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Category</label>
+      <div class="col-sm-10">
+
+        {{!-- <select name="category" class="form-select" aria-label="Select Category" required>
+          {{#each categorydata}}
+            <option value={{this.categoryname}}>{{this.categoryname}}</option>
+          {{/each}}
+        </select> --}}
+        <select class="form-select" name="category" aria-label="Default select example">
+                  <option selected>Select one</option>                      
+                  {{#each categorydata}}
+                 <option value={{this.categoryname}}>{{this.categoryname}}</option> 
+             {{/each}} 
+
+        </select>
+        
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Stock</label>
+      <div class="col-sm-10">
+
+        <input name="Stock" type="number" class="form-control" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">MRP Price</label>
+      <div class="col-sm-10">
+        <input name="ActualPrice" type="number" class="form-control" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label
+        for="inputPassword"
+        class="col-sm-2 col-form-label"
+      >Description</label>
+      <div class="col-sm-10">
+        <input type="text" name="Description" class="form-control" ></input>
+      </div>
+    </div>
+{{!-- image 1 --}}
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 1</label>
+      <div class="col-sm-10">
+        <input name="image1" class="form-control" type="file" id="formFile" onchange="viewImage(event,'imgView1',1)" accept="image/*" />
+      </div>
+    </div>
+                        <img src="" alt="" width="50" height="50" id="imgView1" style="display: none;">
+                        {{!-- <div id="image-box3" class="image-container clr" style="height: 300px; width:20%;display: none;"></div> --}}
+{{!-- image 2 --}}
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 2</label>
+      <div class="col-sm-10">
+        <input name="image2" class="form-control" type="file" id="formFile" onchange="viewImage(event,'imgView2',2)" accept="image/*" />
+      </div>
+    </div>
+                        <img src="" alt="" width="50" height="50" id="imgView2" style="display: none;">
+{{!-- image 3 --}}
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 3</label>
+      <div class="col-sm-10">
+        <input name="image3" class="form-control" type="file" id="formFile" onchange="viewImage(event,'imgView3',3)" accept="image/*" />
+      </div>
+    </div>
+                        <img src="" alt="" width="50" height="50" id="imgView3" style="display: none;">
+{{!-- image 4 --}}
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 4</label>
+      <div class="col-sm-10">
+        <input name="image4" class="form-control" type="file" id="formFile" onchange="viewImage(event,'imgView4',4)" accept="image/*" />
+      </div>
+    </div>
+                        <img src="" alt="" width="50" height="50" id="imgView4" style="display: none;">
+
+
+
+
+
+{{!-- Submit button --}}
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label"></label>
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Add to Products</button>
+      </div>
+    </div>
+       {{!--  --}}
+  </form>
+  
+
+</section>
+<script>
+        function viewImage(event,imgview,index) {
+            document.getElementById(imgview).style.display = "";
+            document.getElementById(imgview).src = URL.createObjectURL(event.target.files[0])
+
+        }
+    </script>
+
+
+
+
+
+
+
+

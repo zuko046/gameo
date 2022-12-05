@@ -1,0 +1,95 @@
+<body>
+
+
+{{! <body style=" background-image: url('https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000')">
+<section class="container" style="text-align: center; margin-top: 3rem;">
+<h1 style="opacity: 80%;">login</h1>
+</section>
+<section class="container" style="width:30rem ;">
+<form method="post" action="/users/userlog">
+  <div class="mb-3">
+    <label for="exampleInputEmail1"  class="form-label" >Email address</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required >
+    <div id="emailHelp" class="form-text">Do login with registered mail address</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label"  >Password</label>
+    <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+  </div>
+  
+  <button type="submit" class="btn btn-dark" >Submit</button>
+</form>
+</section>
+<section>
+  <a style="display: flex; flex-direction: row; justify-content: center; text-decoration: none; color: black;" href="/signup">Click here to Create an account</a>
+</section>
+</body> }}
+<section>
+  <section class="vh-100">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 text-black">
+
+          <div class="px-5 ms-xl-4">
+            {{!-- <h3 class="h1 fw-bold mb-0 " style="margin-top: 3rem; margin-left: 6rem;">Gameo</h3> --}}
+            <img
+              style="height: auto; width:12rem; margin-top: 5rem; margin-left: 5rem;"
+              src="/images/logo.png"
+              alt=""
+            />
+
+          </div>
+
+          <div class="d-flex align-items-center h-custom-1 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+             <form class="well form-horizontal" action="/signup" method="post" id="contact_form">
+            <div style="width: 25rem;">
+                <h3>Sign up</h3>
+                
+                {{#if err}}
+                <p style="color: red;">User Already exist with this email</p>
+                {{/if}}
+                <input name="firstname" placeholder="Name" class="form-control" type="text" required> 
+                <br>
+                {{!-- <input name="lastname" placeholder="Last Name" class="form-control" type="text" required>
+                <br> --}}
+                <input name="email" placeholder="E-Mail Address" class="form-control" type="email" required>
+                <br>
+                <input name="phonenumber" placeholder="Phone Number" class="form-control" type="number" required>
+                <br>
+                <input name="password" placeholder="Password" class="form-control" type="password" required>
+                <br>
+                 <input name="referal" placeholder="Referal(Use If You Have)" class="form-control" type="text" >
+                <br>
+            </div>
+                <button  class="btn btn-info btn-lg btn-block" type="submit">Register</button>
+            </form>
+          </div>
+          <br>
+          <p style="margin-left: 5rem; " class="small mb-5 pb-lg-2"><a style="text-decoration: none;" class="text-muted" href="/users/login">Already have an account </a></p>
+        </div>
+        <div class="col-sm-6 px-0 d-none d-sm-block">
+          <img
+            src="/images/bannerlogin.jpg"
+            alt="Login image"
+            class="w-100 vh-100"
+            style="object-fit: cover; object-position: left;"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<style>
+
+  .bg-image-vertical { position: relative; overflow: hidden;
+  background-repeat:no-repeat; background-position: right center;
+  background-size: auto 100%; } @media (min-width: 1025px) { .h-custom-2 {
+  height: 100%; } }
+
+</style>
+
+
+    
+</body>

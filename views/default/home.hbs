@@ -1,0 +1,240 @@
+
+ <header class="header_area">
+    
+    <div class="main_menu">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light w-100">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <a class="navbar-brand logo_h" href="/">
+            <img style="height: auto; width: 10rem;"  src="/images/logo.png" alt="" />
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
+            <div class="row w-100 mr-0">
+              <div class="col-lg-7 pr-0">
+                <ul class="nav navbar-nav center_nav pull-right">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="/users/contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-lg-5 pr-0">
+                <ul class="nav navbar-nav navbar-right right_nav pull-right">
+                 
+
+                  
+                  <li class="nav-item">
+                    <a href="/users/login" class="icons">
+                      <i class="fa fa-light fa-user"></i>
+                     
+                    </a>
+                  </li>
+
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+<!--================Home Banner Area =================-->
+<section class="home_banner_area mb-40" style="background-color: aqua;">
+  <div class="banner_inner d-flex align-items-center">
+    <div class="container">
+      <div class="banner_content row">
+        <div class="col-lg-12">
+          <p class="sub text-uppercase"></p>
+          <h3><span>" Gamers</span>
+            They dont die
+            <br />They
+            <span>reborn "</span></h3>
+          <h4></h4>
+          <a
+            class="main_btn mt-40"
+            href="#"
+            style="text-decoration: none;"
+          >Games</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Home Banner Area =================-->
+
+
+
+<!--================ Feature Product Area =================-->
+{{!-- <section class="feature_product_area section_gap_bottom_custom">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="main_title">
+          <h2><span>New Games</span></h2>
+          <p>Play with what ever you need</p>
+        </div>
+      </div>
+    </div> --}}
+
+    {{!-- <div class="row">
+      {{#each productdata}}
+      <div class="col-lg-4 col-md-6">
+        <div class="single-product">
+          <div class="product-img">
+            <img 
+              class="img-fluid w-100"
+              style="width: 10rem; height: auto;"
+              src="/images/productimage/{{this._id}}.jpg"
+              alt="product image is not available"
+            /> --}}
+            {{!-- <div class="p_icon">
+              <a href="#">
+                <i class="ti-eye"></i>
+              </a>
+              <a href="#">
+                <i class="ti-heart"></i>
+              </a>
+              <a href="#">
+                <i class="ti-shopping-cart"></i>
+              </a>
+            </div> --}}
+          {{!-- </div>
+          <div class="product-btm">
+            <a href="/users/useraccount/itemview/{{this._id}}" class="d-block" style="text-decoration: none;">
+              <h4>{{this.Name}}</h4>
+            </a>
+            <div class="mt-3">
+              <span class="mr-4">${{this.OfferPrice}}</span>
+              <del>${{this.ActualPrice}}</del>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}     
+    </div>
+  </div>
+</section> --}}
+<!--================ End Feature Product Area =================-->
+
+
+
+
+<!-- Start feature Area -->
+<section class="feature-area section_gap_bottom_custom">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="single-feature">
+          <a href="#" class="title" style="text-decoration: none;">
+            {{! <i class="flaticon-money"></i> }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-coin"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"
+              ></path>
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              ></path>
+              <path
+                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+              ></path>
+            </svg>
+            <h3>Money back gurantee</h3>
+          </a>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="single-feature">
+          <a href="#" class="title" style="text-decoration: none;">
+            {{! <i class="flaticon-truck"></i> }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-truck"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+              ></path>
+            </svg>
+            <h3>Free Delivery</h3>
+          </a>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="single-feature">
+          <a href="#" class="title" style="text-decoration: none;">
+            {{! <i class="flaticon-support"></i> }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-headset"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"
+              ></path>
+            </svg>
+            <h3>Alway support</h3>
+          </a>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="single-feature">
+          <a href="#" class="title" style="text-decoration: none;">
+            {{! <i class="fa-light fa-shield-check"></i> }}
+            {{! <i class="fa-light fa-shield-exclamation"></i> }}
+            {{! <i class="fa flaticon-blockchain"></i> }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-shield-check"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"
+              ></path>
+              <path
+                d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+              ></path>
+            </svg>
+            <h3>Secure payment</h3>
+          </a>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End feature Area -->

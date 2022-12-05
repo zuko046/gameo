@@ -1,0 +1,134 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Coupon</h1>
+  </div>
+<div class="d-flex justify-content-end m-3" >
+                    <button type="button" class="btn btn-dark mb-4" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add New Coupon</button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create new Coupon</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form id="addcoupon" method="post">
+                                <div class=" mb-3">
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" id="coupon" name="coupon"
+                                        placeholder="Enter Coupon code" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="number" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" id="coupon-offer"
+                                        name="couponOffer" placeholder="Enter Offer in Percentage" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input id="minprice" type="number"  class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" id="minPrice" name="minPrice"
+                                        placeholder="Enter minimum price Purchase" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input id="maxprice" type="number" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" id="maxPrice" name="maxPrice"
+                                        placeholder="Enter Amount Discount" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Expiry Date</label>
+                                    <input type="date" class="form-control" aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-default" id="expiryDate" name="expDate"
+                                        required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<section style="width: 70%; display: flex;">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Coupon</th>
+      <th scope="col">Offer</th>
+      <th scope="col">Min Price</th>
+      <th scope="col">Max Price</th>
+      <th scope="col">Date</th>
+      <th scope="col">delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each coupon}}
+    <tr>
+      <th scope="row">{{inc @index}}</th>
+      <td>{{this.coupon}}</td>
+      <td>{{this.couponOffer}}</td>
+      <td>{{this.minPrice}}</td>
+      <td>{{this.maxPrice}}</td>
+      <td>{{this.expDate}}</td>
+      <td><button onclick="deletecoupon('{{this._id}}')" class="btn btn-danger">Delete</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</section>
+  <br />
+  
+</section>
+
+
+
+
+
+
+<script>
+$('#addcoupon').submit((e)=>{
+  console.log("hello")
+  e.preventDefault();
+  $.ajax({
+    url  : '/admin/addcoupon',
+    type : 'post',
+    data : $('#addcoupon').serialize(),
+    success : (response)=>{
+      console.log(response)
+      if(response.status){
+                swal("Good job!", "Its already there !!", "success");
+      }else{
+      location.reload();
+      swal("Good job!", "Coupon created !!", "success");
+      }
+    }
+  })
+})
+
+{{!-- delete coupon --}}
+function deletecoupon(couponId){
+
+  $.ajax({
+    url : "/admin/deletecoupon",
+    data : { couponId } ,
+    type : "post",
+    success : (response)=>{
+      if(response.status){
+         location.reload()
+      }else{
+         location.reload()
+      }
+    }
+  })
+}
+
+</script>

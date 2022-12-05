@@ -1,0 +1,105 @@
+
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Edit Products Form</h1>
+  </div>
+    <br>
+  <form action="/admin/product/edit/{{product._id}}" method="post" enctype="multipart/form-data">
+    <div class="row mb-3">
+      <label for="inputText" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+
+        <input name="Name" type="text" class="form-control" value="{{product.Name}}" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputEmail" class="col-sm-2 col-form-label">Brand</label>
+      <div class="col-sm-10">
+
+        <input name="Brand" type="text" class="form-control" value="{{product.Brand}}"/>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Category</label>
+      <div class="col-sm-10">
+
+        <select name="category" class="form-select" aria-label="Select Category" required>
+          <option selected>{{product.category}}</option>
+          {{#each categorydata}}
+            <option value={{this.categoryname}}>{{this.categoryname}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputPassword" class="col-sm-2 col-form-label" >Stock</label>
+      <div class="col-sm-10">
+
+        <input name="Stock" type="number" class="form-control"  value="{{product.Stock}}"/>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">MRP Price</label>
+      <div class="col-sm-10">
+        <input name="ActualPrice" type="number" class="form-control" value="{{product.ActualPrice}}"/>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label
+        for="inputPassword"
+        class="col-sm-2 col-form-label"
+      >Description</label>
+      <div class="col-sm-10">
+        <input name="Description" type="text" class="form-control"  value="{{product.Description}}"></input>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 1</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="file" id="formFile" name="image1" onchange="viewImage(event,'imgView1',1)" accept="image/*" value="{{product.Image.[0]}}" />
+      </div>
+    </div>
+    <img src="{{product.Image.[0]}}" alt="" width="50" height="50" id="imgView1" >
+    
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 2</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="file" id="formFile" name="image2" onchange="viewImage(event,'imgView2',2)" accept="image/*" value="{{product.Image.[1]}}" />
+      </div>
+    </div>
+    <img src="{{product.Image.[1]}}" alt="" width="50" height="50" id="imgView2" >
+
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 3</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="file" id="formFile" name="image3" onchange="viewImage(event,'imgView3',3)" accept="image/*" value="{{product.Image.[2]}}" />
+      </div>
+    </div>
+    <img src="{{product.Image.[2]}}" alt="" width="50" height="50" id="imgView3" >
+
+    <div class="row mb-3">
+      <label for="inputNumber" class="col-sm-2 col-form-label">Product Image 4</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="file" id="formFile" name="image4" onchange="viewImage(event,'imgView4',4)" accept="image/*" value="{{product.Image.[3]}}" />
+      </div>
+    </div>
+    <img src="{{product.Image.[3]}}" alt="" width="50" height="50" id="imgView4" >
+
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Submit Button</label>
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Save Products</button>
+      </div>
+    </div>
+
+  </form>
+
+</section>
+<script>
+        function viewImage(event,imgview,index) {
+            document.getElementById(imgview).style.display = "";
+            document.getElementById(imgview).src = URL.createObjectURL(event.target.files[0])
+
+        }
+    </script>

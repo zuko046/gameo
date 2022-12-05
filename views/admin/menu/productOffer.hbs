@@ -1,0 +1,60 @@
+<section class="main" id="main">
+  <div class="pagetitle">
+    <h1>Product Offer</h1>
+  </div>
+  <br />
+  <div style="width: 60%; display: flex;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Index</th>
+        <th scope="col">ProductName</th>
+        <th scope="col">Offer Price</th>
+        <th scope="col">Actual Price</th>
+        <th scope="col">ProductOffer in %</th>
+        <th scope="col">Add Product Offer in %</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each product}}
+      <tr>
+        <th scope="row">{{inc @index}}</th>
+        <td>{{this.Name}}</td>
+        <td>{{this.OfferPrice}}</td>
+        <td>{{this.ActualPrice}}</td>
+        <td >{{this.ProductOfferPercentage}}%</td>
+        <td> <input 
+        type="number" id="{{this._id}}"> 
+        </td>
+        <td> <button
+          onclick="productdiscountChange('{{this._id}}')" 
+         type="submit" class="btn btn-success">Save
+         </button> </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+  <br />
+  
+</section>
+
+<script>
+  function productdiscountChange(productId){
+    console.log(productDiscount)
+    var productDiscount = document.getElementById(productId).value
+    console.log(productDiscount)
+    $.ajax({
+      url:"/admin/productoffer",
+      data:{
+        productId , productDiscount
+      },
+      type:"post",
+      success:(response) =>{
+        document.getElementById(productId).innerHTML = response.discountvalue,
+        location.reload()
+      }
+    })
+  }
+</script>

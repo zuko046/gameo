@@ -1,0 +1,252 @@
+<section style="display: flex; flex-direction: row;">
+  <div style="width: 10rem; height: 100%; background-color: aquamarine;">
+    <div
+      style=" background-image: url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?w=2000); width: 20rem; height: 41.5rem; display: flex; flex-direction: row; justify-content: left; float: left;"
+    >
+      <div
+        class="container"
+        style=" text-decoration: none; padding-top: 3rem; padding-left: 2rem; text-decoration-color: #ffff;"
+      >
+        <a
+          href="/users/profile"
+          style="text-decoration: none; margin-top: 5rem;  color: #000"
+        >
+          <i class="fa-solid fa-angles-right" style="float: left;"></i>
+          <h5>&nbsp; Personal info</h5>
+        </a>
+        <br />
+        <a href="/users/history" style="text-decoration: none; color: #000;">
+          <i class="fa-solid fa-angles-right" style="float: left;"></i>
+          <h5>&nbsp; Order history</h5>
+        </a>
+        <br />
+        <a href="/users/wallet" style="text-decoration: none; color: #000;">
+          <i class="fa-solid fa-angles-right" style="float: left;"></i>
+          <h5>&nbsp; Wallet</h5>
+        </a>
+        <br />
+        <a href="/users/address" style="text-decoration: none; color: #000;">
+          <i class="fa-solid fa-angles-right" style="float: left;"></i>
+          <h5>&nbsp; Address</h5>
+        </a>
+        <br />
+        <a href="/users/password" style="text-decoration: none;  color: #000;">
+          <i class="fa-solid fa-angles-right" style="float: left;"></i>
+          <h5>&nbsp; Password Management</h5>
+        </a>
+        <br />
+        <a href="/users/logout" style="text-decoration: none;  color: #000;">
+          <i class="bi bi-box-arrow-right" style="float: left;"></i>
+          <h5>&nbsp; Logout</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" style="width: 20rem; margin-left: 10rem;">
+    <h5 class="card-title">Oder History</h5>
+
+    <!-- Table with hoverable rows -->
+    {{!-- <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                  <tr>
+                    <th >
+                        <a href="/users/history/order/{{this._id}}" style="text-decoration: none; color: #000;">
+                        {{#each this.product}}
+                        <ul>
+                            
+                                <li>
+                                {{this.productName}}
+                                </li>
+                                </ul>
+                                {{/each}}
+                                 </th>
+                                <td>{{this.deliveryDetails.address}}</td>
+                                <td>{{this.product.oderDate}}</td>
+                                <td>{{this.totalPrice}}</td>
+                                 <td>{{this.paymentMethod}}</td>
+                                    <td>
+                                
+                                
+                                {{#ifCheck this.status "Shipped"}}
+                                 <a href="/users/cancelorder/{{this._id}}" class="btn btn-primary">Cancel Order</a>
+                                {{/ifCheck}}
+                                {{#ifCheck this.status "Pending"}}
+                                 <a href="/users/cancelorder/{{this._id}}" class="btn btn-primary">Cancel Order</a>
+                                {{/ifCheck}}
+                                {{#ifCheck this.status "Delivered"}}
+                                 <a href="/users/returnorder/{{this._id}}" class="btn btn-danger">Return Order</a>
+                                {{/ifCheck}}
+                                
+                        </a>
+                    </td>
+                  </tr>
+                    {{/each}}
+                </tbody>
+              </table> --}}
+    <!-- End Table with hoverable rows -->
+
+    {{#each data}}
+      <div class="card rounded-3 mb-4">
+        <div class="card-body p-4">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-3 col-lg-3 col-xl-3">
+              <a
+                href="/users/history/order/{{this._id}}"
+                style="text-decoration: none; color: #000;" >
+                <p class="lead fw-normal mb-2">
+                  <a href="/users/history/order/{{this._id}}" style="text-decoration: none; color: #000;">
+                    
+                     <h6>id :{{this._id}}</h6>   
+                    <br>
+                     <h6>date :{{this.date}}</h6> 
+                  </a>
+                </p>
+
+                {{!-- <img
+                  src="{{item.product[0].}}"
+                  class="img-fluid rounded-3" alt="product">  --}}
+              </a>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-3">
+              <p class="lead fw-normal mb-2">
+                <a
+                  href="/users/history/order/{{this._id}}"
+                  style="text-decoration: none; color: #000;"
+                >
+
+                  {{#each this.product}}
+                    {{this.productName}}
+                    <br />
+                  {{/each}}
+                </a>
+              </p>
+              <p><span class="text-muted">Total : </span>
+                {{#if this.totalWithCouponDiscount}}
+                  {{this.totalWithCouponDiscount}}
+                {{else}}
+                  {{this.totalPrice}}
+                {{/if}}
+                <span class="text-muted"></span></p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+              <p class="lead fw-normal mb-2"> </p>
+              <p><span class="text-muted">
+                </span>{{this.deliveryDetails.name}}{{this.deliveryDetails.address}}{{this.deliveryDetails.pincode}}
+                <span class="text-muted"></span></p>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+              <h5 class="mb-0">
+                <p>{{this.status}}</p>
+                {{#ifCheck this.status "Shipped"}}
+                  <a
+                    href="/users/cancelorder/{{this._id}}"
+                    class="btn btn-primary"
+                  >Cancel Order</a>
+                {{/ifCheck}}
+                {{#ifCheck this.status "Pending"}}
+                  {{!-- <a
+                    href="/users/cancelorder/{{this._id}}"
+                    class="btn btn-primary"
+                  >Cancel Order</a> --}}
+                  <button class="btn btn-primary" onclick="cancelOrder('{{this._id}}')">Cancel Order</button>
+
+                {{/ifCheck}}
+                {{#ifCheck this.status "Delivered"}}
+                  {{!-- <a
+                    href="/users/returnorder/{{this._id}}"
+                    class="btn btn-danger"
+                  >Return Order</a> --}}
+                  <button class="btn btn-danger" onclick="returnOrder('{{this._id}}')">Return Order</button>
+                {{/ifCheck}}
+
+                {{! <button class="btn btn-primary"> Cancel Order</button> }}
+              </h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    {{/each}}
+
+  </div>
+</section>
+
+<script>
+ function returnOrder(orderid) {
+    console.log("cancel order")
+        swal(
+          {
+      title: "Are you sure?",
+      text: "Do you want to cancel the order",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, Cancel my order",
+      cancelButtonText: "No !",
+      closeOnConfirm: true,
+      closeOnCancel: true,
+    }, 
+     function (isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          url:'/users/cancelorder/'+orderid,
+         type:"get",
+            
+            success:(response)=>{
+              if(response.status){
+                location.reload()
+              }
+            },
+        });
+      }
+    }
+  )
+}
+
+
+
+
+ function returnOrder(orderid) {
+    console.log("cancel order")
+        swal(
+          {
+      title: "Are you sure?",
+      text: "Do you want to Return the Products",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, Cancel my order",
+      cancelButtonText: "No !",
+      closeOnConfirm: true,
+      closeOnCancel: true,
+    }, 
+     function (isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          url:'/users/returnorder/'+orderid,
+         type:"get",
+            
+            success:(response)=>{
+              if(response.status){
+                location.reload()
+              }
+            },
+        });
+      }
+    }
+  )
+}
+</script>
