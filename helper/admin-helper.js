@@ -114,6 +114,7 @@ module.exports = {
           },
         ])
         .toArray();
+        console.log(totalRevenue);
       totalRevenue = totalRevenue[0].totalPrice;
       console.log(totalRevenue);
       resolve(totalRevenue);
@@ -330,9 +331,9 @@ module.exports = {
   pagination : (Collection,limit) => {
     
     return new Promise(async (resolve,reject)=>{
-                                                  //8
+                                               
       let totalItem = await db.get().collection(Collection).find().toArray()
-                              8
+                              
       let numberOfItem = totalItem.length
                       
       let pageCount = numberOfItem / limit
